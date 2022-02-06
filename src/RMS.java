@@ -110,6 +110,9 @@ public class RMS {
         int[] storequantityordered=new int[15];
         int totalexpense=0;
         int addtoaccountbalance=0;
+        int countorders=0;
+        int qorder=0;
+        boolean iforderedonly=false;
         while(true) {
             System.out.println("Welcome To Restaurant Management System:)");
             Scanner op = new Scanner(System.in);    //System.in is a standard input stream
@@ -182,6 +185,7 @@ public class RMS {
                 //System.out.println("Choice: "+mysum+"Quantity ordered: "+quant);
 
             }
+
             if (a == 4) {
                 //rms.inventorymanagement(204, 1, 1);
                 //System.out.println("Total Expense: " + rms.);
@@ -190,6 +194,8 @@ public class RMS {
 
             if(a == 6) {
                 int ord1 = 0;
+                //in this logic or project we are taking cost of each item as of our choice as it is not given and to calculate the net profit and expense we need it
+                //we are taking 50 rupees by default for every item ordered
                 File fr1 = new File("C:\\Users\\nls86\\Desktop\\Javafullstack\\hackathon\\receipe.txt");
                 System.out.println("");
                 System.out.println("Choose the items which you want to order:");
@@ -216,6 +222,7 @@ public class RMS {
                     System.out.println("Please enter the quantity: ");
                     Scanner quan2 = new Scanner(System.in);
                     int quan21 = quan2.nextInt();
+                    qorder+=quan21;
                     Map<String, Double> items = new HashMap<>();
                     for(int k=0;k<ord1;k++) {
                         if(k == usr-1) {
@@ -258,9 +265,13 @@ public class RMS {
                                     }
                                 }
                             }
+                            //int countorders=0;
                             if(ordertrue) {
+                                countorders+=1;
+                                iforderedonly=true;
                                 System.out.println(". d / order is placed successfully.");
                             } else {
+                                qorder-=quan21; // doing this because if order not placed means dishes should not added to qorder, hence deleting added dishes like this here
                                 System.out.println("Your order is not placed successfully.");
                             }
 
@@ -268,6 +279,19 @@ public class RMS {
                     }
                 } else {
                     System.out.println("Please enter the correct value");
+                }
+                if(iforderedonly=true)  //if order not done means no of dishes should not print
+                {
+                    addtoaccountbalance = (qorder * 50);
+                }
+            }
+
+            if(a==3)
+            {
+                if(iforderedonly=true)  //if order not done means no of dishes should not print
+                {
+                    addtoaccountbalance=(qorder*50);
+                    System.out.println("Total Sales i.e Successfull orders = " + countorders + " & Total No Of Items Ordered / Total Dishes Sold= " + qorder +" & Price for each dish is 50 rupees, so Total Price for All Dishes= "+(qorder*50));
                 }
             }
             if(a==5)
